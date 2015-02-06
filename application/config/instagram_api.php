@@ -9,12 +9,12 @@
 |
 */
 
-$config['instagram_client_name']	= 'Cinsta';
-$config['instagram_client_id']		= '5ef90d2fcd0648478370f8bcd7c757c4';
-$config['instagram_client_secret']	= 'f7af25a2dd51418283b587623c4be3f3';
-$config['instagram_callback_url']	= 'http://localhost/cinsta/';
-$config['instagram_website']		= 'http://localhost/cinsta/authenticate/get_codes';
-$config['instagram_description']	= 'Codeigniter Instagram API Library';
+$config['instagram_client_name']	= '';
+$config['instagram_client_id']		= '';
+$config['instagram_client_secret']	= '';
+$config['instagram_callback_url']	= '';
+$config['instagram_website']		= '';
+$config['instagram_description']	= '';
 
 /**
  * Instagram provides the following scope permissions which can be combined as likes+comments
@@ -25,7 +25,7 @@ $config['instagram_description']	= 'Codeigniter Instagram API Library';
  * likes - to like and unlike items on a user’s behalf
  * 
  */
-$config['instagram_scope'] = 'basic';
+$config['instagram_scope'] = '';
 
 // There was issues with some servers not being able to retrieve the data through https
 // If you have this problem set the following to FALSE 
