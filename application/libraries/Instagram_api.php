@@ -40,6 +40,7 @@ class Instagram_api {
     	'user'						=> 'https://api.instagram.com/v1/users/%s/?access_token=%s',
         'user_feed'					=> 'https://api.instagram.com/v1/users/self/feed?access_token=%s&count=%s&femax_id=%s&min_id=%s',
         'user_recent'				=> 'https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s&count=%s&max_id=%s&min_id=%s&max_timestamp=%s&min_timestamp=%s',
+        'user_media_liked'			=> 'https://api.instagram.com/v1/users/self/media/liked?access_token=%s&count=%s&femax_id=%s&min_id=%s'
         'user_search'				=> 'https://api.instagram.com/v1/users/search?q=%s&access_token=%s',
         'user_follows'				=> 'https://api.instagram.com/v1/users/%s/follows?access_token=%s',
         'user_followed_by'			=> 'https://api.instagram.com/v1/users/%s/followed-by?access_token=%s',
