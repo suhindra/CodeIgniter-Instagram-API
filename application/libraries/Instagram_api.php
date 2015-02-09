@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * @category   Instagram
- * @package    CodeIgniter
+ * @package    CodeIgniter 3.0
  * @subpackage Client
  * @version    1.0
  * @license    http://www.gnu.org/licenses/     GNU General Public License
