@@ -37,7 +37,7 @@ class Instagram_api {
 	 * @var string
 	 */
 	protected $_api_urls = array(
-		'user'	                    =>'https://api.instagram.com/v1/users/%s/?access_token=%s',
+		'user'						=>'https://api.instagram.com/v1/users/%s/?access_token=%s',
 		'user_feed'                 => 'https://api.instagram.com/v1/users/self/feed?access_token=%s&count=%s&femax_id=%s&min_id=%s',
 		'user_recent'               => 'https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s&count=%s&max_id=%s&min_id=%s&max_timestamp=%s&min_timestamp=%s',
 		'user_search'               => 'https://api.instagram.com/v1/users/search?q=%s&access_token=%s',
