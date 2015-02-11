@@ -12,7 +12,7 @@
 $config['instagram_client_name']	= 'Cinsta';
 $config['instagram_client_id']		= '5ef90d2fcd0648478370f8bcd7c757c4';
 $config['instagram_client_secret']	= 'f7af25a2dd51418283b587623c4be3f3';
-$config['instagram_callback_url']	= 'http://localhost/cinsta/authorize/get_code/';
+$config['instagram_callback_url']	= 'http://localhost/cinsta/Demo/authorize/get_code/';
 $config['instagram_website']		= 'http://localhost/cinsta/';
 $config['instagram_description']	= 'Codeigniter Instagram API Library';
 	

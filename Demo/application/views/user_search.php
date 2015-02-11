@@ -1,6 +1,10 @@
+<div class="container">
+    <div class="starter-template">
+    	<h1>User search</h1>
+	</div>
+</div>
 
-<h1>User search</h1>
-
+<div class="container">
 <?php if(isset($user_search_data->data)) { ?>
 
 	<?php if(count($user_search_data->data) != 0) { ?>
@@ -28,3 +32,4 @@
 	<?php echo form_submit($submit_input); ?>
 
 </form>
+</div>

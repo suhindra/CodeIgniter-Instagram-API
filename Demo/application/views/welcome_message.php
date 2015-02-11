@@ -1,79 +1,40 @@
-
-<h1>CodeIgniter3-Instagram-API Instagram API Library</h1>
-
-<p>This CodeIgniter library provides all the functionality to interact with the Instagram API. <?php echo anchor('https://github.com/suhindra/CodeIgniter3-Instagram-API', 'Download from Github'); ?>.</p>
-
-<?php if($this->session->userdata('instagram-token')) { ?>
-
-<nav>
-
-	<h2>Users</h2>
-
-	<ul>
-		<li><?php echo anchor('/user/profile/', 'Your profile'); ?></li>
-		<li><?php echo anchor('/user/feed/', 'Your feed'); ?></li>
-		<li><?php echo anchor('/user/recent/', 'Your recent media'); ?></li>
-		<li><?php echo anchor('/user/search/', 'Search users'); ?></li>
-		<li><?php echo anchor('/user/follows/', 'Who you follow'); ?></li>
-		<li><?php echo anchor('/user/followed-by/', 'Who follows you'); ?></li>
-		<li><?php echo anchor('/user/requested_by/', 'Requested by'); ?></li>
-		<li><?php echo anchor('/user/relationship/', 'Relationship'); ?></li>
-	</ul>
-	
-	<h2>Media</h2>
-	
-	<ul>
-		<li><?php echo anchor('/media/item/', 'See a media item'); ?></li>
-		<li><?php echo anchor('/media/search/', 'Search for media'); ?></li>
-		<li><?php echo anchor('/media/popular/', 'Popular media'); ?></li>
-		<li><?php echo anchor('/media/comments/', 'Comments about a media item'); ?></li>
-		<li><?php echo anchor('/media/likes/', 'Likes for a media item'); ?></li>
-	</ul>
-	
-	<h2>Tags</h2>
-	
-	<ul>
-		<li><?php echo anchor('/tags/details/', 'Tag details'); ?></li>
-		<li><?php echo anchor('/tags/recent/', 'Recent tags'); ?></li>
-		<li><?php echo anchor('/tags/search/', 'Search tags'); ?></li>
-	</ul>
-	
-	<h2>Locations</h2>
-	
-	<ul>
-		<li><?php echo anchor('/locations/details/', 'Location data'); ?></li>
-		<li><?php echo anchor('/locations/recent/', 'Recent locations'); ?></li>
-		<li><?php echo anchor('/locations/search/', 'Search locations'); ?></li>
-	</ul>
-
-</nav>
-
-<?php } else { ?>
-
-<p>To see all of the functions please <?php echo anchor($this->instagram_api->instagram_login(), 'login through Instagram'); ?></p>
-
-<?php } ?>
-<h2>Popular Media</h2>
+<div class="container">
+    <div class="starter-template">
+		<h1>CodeIgniter 3.0 Instagram API Library</h1>
+			<p>This CodeIgniter library provides all the functionality to interact with the Instagram API. <?php echo anchor('https://github.com/suhindra/CodeIgniter3-Instagram-API', 'Download from Github'); ?>.</p>
+	</div>
+</div>
 <section>
 	<?php if(is_object($popular_media)) { ?> 
-	
 		<?php foreach($popular_media as $media_data) { ?>
-		
 			<?php if(is_array($media_data)) { ?>
-			
-			<div class="popup-gallery">
-			
-			<?php foreach($media_data as $media) { ?>
-					<?php echo anchor($media->images->standard_resolution->url, img(array('src' => $media->images->thumbnail->url, 'width' => '140', 'height' => '140'))); ?>
-			<?php } ?>
-			
+			<div class="container">
+			<h2>Popular Media</h2>
+				<div class="popup-gallery">
+				<?php foreach($media_data as $media) { ?>
+					<?php echo anchor($media->images->standard_resolution->url, img(array('src' => $media->images->thumbnail->url, 'width' => '140', 'height' => '140', 'class'=>'img-thumbnail'))); ?>
+				<?php } ?>
+				</div>
 			</div>
-		
+			<?php } ?>
 		<?php } ?>
-	
-
 	<?php } ?>
-	
-<?php } ?>
-	
+</section>
+<hr>
+<section>
+<div class="container">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'instagramapicodeigniterlibrary'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
 </section>
