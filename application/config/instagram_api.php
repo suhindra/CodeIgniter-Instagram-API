@@ -15,7 +15,7 @@ $config['instagram_client_secret']	= '';
 $config['instagram_callback_url']	= '';
 $config['instagram_website']		= '';
 $config['instagram_description']	= '';
-
+	
 /**
  * Instagram provides the following scope permissions which can be combined as likes+comments
  * 
