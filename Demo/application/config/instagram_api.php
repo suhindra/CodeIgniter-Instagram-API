@@ -9,12 +9,12 @@
 |
 */
 
-$config['instagram_client_name']	= '';
-$config['instagram_client_id']		= '';
-$config['instagram_client_secret']	= '';
-$config['instagram_callback_url']	= '';
-$config['instagram_website']		= '';
-$config['instagram_description']	= '';
+$config['instagram_client_name']	= '';//Your App Name
+$config['instagram_client_id']		= '';//Your Client ID
+$config['instagram_client_secret']	= '';//Your Secret Key
+$config['instagram_callback_url']	= '';//e.g. http://yourwebsite.com/authorize/get_code/
+$config['instagram_website']		= '';//e.g. http://yourwebsite.com/
+$config['instagram_description']	= '';//Your App Description
 	
 /**
  * Instagram provides the following scope permissions which can be combined as likes+comments
