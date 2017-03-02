@@ -16,13 +16,12 @@ class Welcome extends CI_Controller {
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
+	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
 	{
 		// Get popular media using the client id call
 		$data['popular_media'] = $this->instagram_api->get_popular_media();
-
 		$data['main_view'] = 'welcome_message';
 		
 		$this->load->vars($data);

@@ -20,6 +20,3 @@
 		<?php } ?>
 	<?php } ?>
 </section>
-<hr>
-<section>
-</section>

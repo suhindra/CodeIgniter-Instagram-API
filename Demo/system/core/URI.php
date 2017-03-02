@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
+ * @link	https://codeigniter.com
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	URI
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/libraries/uri.html
+ * @link		https://codeigniter.com/user_guide/libraries/uri.html
  */
 class CI_URI {
 
@@ -107,37 +107,34 @@ class CI_URI {
 			$this->_permitted_uri_chars = $this->config->item('permitted_uri_chars');
 
 			// If it's a CLI request, ignore the configuration
-			if (is_cli() OR ($protocol = strtoupper($this->config->item('uri_protocol'))) === 'CLI')
+			if (is_cli())
 			{
-				$this->_set_uri_string($this->_parse_argv());
-			}
-			elseif ($protocol === 'AUTO')
-			{
-				// Is there a PATH_INFO variable? This should be the easiest solution.
-				if (isset($_SERVER['PATH_INFO']))
-				{
-					$this->_set_uri_string($_SERVER['PATH_INFO']);
-				}
-				// No PATH_INFO? Let's try REQUST_URI or QUERY_STRING then
-				elseif (($uri = $this->_parse_request_uri()) !== '' OR ($uri = $this->_parse_query_string()) !== '')
-				{
-					$this->_set_uri_string($uri);
-				}
-				// As a last ditch effor, let's try using the $_GET array
-				elseif (is_array($_GET) && count($_GET) === 1 && trim(key($_GET), '/') !== '')
-				{
-					$this->_set_uri_string(key($_GET));
-				}
-			}
-			elseif (method_exists($this, ($method = '_parse_'.strtolower($protocol))))
-			{
-				$this->_set_uri_string($this->$method());
+				$uri = $this->_parse_argv();
 			}
 			else
 			{
-				$uri = isset($_SERVER[$protocol]) ? $_SERVER[$protocol] : @getenv($protocol);
-				$this->_set_uri_string($uri);
+				$protocol = $this->config->item('uri_protocol');
+				empty($protocol) && $protocol = 'REQUEST_URI';
+
+				switch ($protocol)
+				{
+					case 'AUTO': // For BC purposes only
+					case 'REQUEST_URI':
+						$uri = $this->_parse_request_uri();
+						break;
+					case 'QUERY_STRING':
+						$uri = $this->_parse_query_string();
+						break;
+					case 'PATH_INFO':
+					default:
+						$uri = isset($_SERVER[$protocol])
+							? $_SERVER[$protocol]
+							: $this->_parse_request_uri();
+						break;
+				}
 			}
+
+			$this->_set_uri_string($uri);
 		}
 
 		log_message('info', 'URI Class Initialized');
@@ -204,17 +201,22 @@ class CI_URI {
 			return '';
 		}
 
-		$uri = parse_url($_SERVER['REQUEST_URI']);
+		// parse_url() returns false if no host is present, but the path or query string
+		// contains a colon followed by a number
+		$uri = parse_url('http://dummy'.$_SERVER['REQUEST_URI']);
 		$query = isset($uri['query']) ? $uri['query'] : '';
-		$uri = isset($uri['path']) ? rawurldecode($uri['path']) : '';
+		$uri = isset($uri['path']) ? $uri['path'] : '';
 
-		if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0)
+		if (isset($_SERVER['SCRIPT_NAME'][0]))
 		{
-			$uri = (string) substr($uri, strlen($_SERVER['SCRIPT_NAME']));
-		}
-		elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0)
-		{
-			$uri = (string) substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+			if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0)
+			{
+				$uri = (string) substr($uri, strlen($_SERVER['SCRIPT_NAME']));
+			}
+			elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0)
+			{
+				$uri = (string) substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+			}
 		}
 
 		// This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
@@ -222,7 +224,7 @@ class CI_URI {
 		if (trim($uri, '/') === '' && strncmp($query, '/', 1) === 0)
 		{
 			$query = explode('?', $query, 2);
-			$uri = rawurldecode($query[0]);
+			$uri = $query[0];
 			$_SERVER['QUERY_STRING'] = isset($query[1]) ? $query[1] : '';
 		}
 		else
@@ -262,7 +264,7 @@ class CI_URI {
 		{
 			$uri = explode('?', $uri, 2);
 			$_SERVER['QUERY_STRING'] = isset($uri[1]) ? $uri[1] : '';
-			$uri = rawurldecode($uri[0]);
+			$uri = $uri[0];
 		}
 
 		parse_str($_SERVER['QUERY_STRING'], $_GET);
@@ -292,7 +294,7 @@ class CI_URI {
 	 *
 	 * Do some final cleaning of the URI and return it, currently only used in self::_parse_request_uri()
 	 *
-	 * @param	string	$url
+	 * @param	string	$uri
 	 * @return	string
 	 */
 	protected function _remove_relative_directory($uri)

@@ -13,9 +13,5 @@ You will need to set up a new client with Instagram at http://instagram.com/deve
 Once this is complete copy the details supplied by Instagram into application/config/Instagram_api.php
 
 
-<h2>Demo</h2>
-https://freelearn.id/cinsta/
-
-
 <h2>License</h2>
 MIT

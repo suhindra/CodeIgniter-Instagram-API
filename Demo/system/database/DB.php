@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
+ * @link	https://codeigniter.com
  * @since	Version 1.0.0
  * @filesource
  */
@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @category	Database
  * @author	EllisLab Dev Team
- * @link	http://codeigniter.com/user_guide/database/
+ * @link	https://codeigniter.com/user_guide/database/
  *
  * @param 	string|string[]	$params
  * @param 	bool		$query_builder_override
@@ -61,18 +61,23 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 
 		include($file_path);
-		// Make packages contain database config files
-		foreach (get_instance()->load->get_package_paths() as $path)
+
+		// Make packages contain database config files,
+		// given that the controller instance already exists
+		if (class_exists('CI_Controller', FALSE))
 		{
-			if ($path !== APPPATH)
+			foreach (get_instance()->load->get_package_paths() as $path)
 			{
-				if (file_exists($file_path = $path.'config/'.ENVIRONMENT.'/database.php'))
+				if ($path !== APPPATH)
 				{
-					include($file_path);
-				}
-				elseif (file_exists($file_path = $path.'config/database.php'))
-				{
-					include($file_path);
+					if (file_exists($file_path = $path.'config/'.ENVIRONMENT.'/database.php'))
+					{
+						include($file_path);
+					}
+					elseif (file_exists($file_path = $path.'config/database.php'))
+					{
+						include($file_path);
+					}
 				}
 			}
 		}
@@ -208,10 +213,6 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 	}
 
-	if ($DB->autoinit === TRUE)
-	{
-		$DB->initialize();
-	}
-
+	$DB->initialize();
 	return $DB;
 }
