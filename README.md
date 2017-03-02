@@ -14,8 +14,8 @@ Once this is complete copy the details supplied by Instagram into application/co
 
 
 <h2>Demo</h2>
-http://suhindra.com/cinsta/
+https://freelearn.id/cinsta/
 
 
 <h2>License</h2>
- GNU General Public License
+MIT
